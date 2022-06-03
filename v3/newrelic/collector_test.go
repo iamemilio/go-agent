@@ -484,3 +484,45 @@ func TestPreconnectRequestMarshall(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkConnectAttempt(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		run, resp := testConnectHelper(connectMock{
+			redirect: endpointResult{response: makeResponse(200, redirectBody)},
+			connect:  endpointResult{response: makeResponse(200, connectBody)},
+		})
+		if nil == run || nil != resp.Err {
+			b.Fatal(run, resp.Err)
+		}
+		if run.Collector != "special_collector" {
+			b.Error(run.Collector)
+		}
+		if run.RunID != "my_agent_run_id" {
+			b.Error(run)
+		}
+	}
+}
+
+func BenchmarkConnectAttempt10(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		for n := 0; n < 10; n++ {
+			run, resp := testConnectHelper(connectMock{
+				redirect: endpointResult{response: makeResponse(200, redirectBody)},
+				connect:  endpointResult{response: makeResponse(200, connectBody)},
+			})
+			if nil == run || nil != resp.Err {
+				b.Fatal(run, resp.Err)
+			}
+			if run.Collector != "special_collector" {
+				b.Error(run.Collector)
+			}
+			if run.RunID != "my_agent_run_id" {
+				b.Error(run)
+			}
+		}
+	}
+}

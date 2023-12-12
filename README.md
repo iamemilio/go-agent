@@ -199,4 +199,4 @@ To [all contributors](https://github.com/newrelic/go-agent/graphs/contributors),
 the [Go Agent](https://opensource.newrelic.com/projects/newrelic/go-agent).
 
 ## License
-The New Relic Go agent is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
+The New Relic Go agent is licensed under the [Apache 2.0](https://apache.org/licenses/LICENSE-2.0.txt) License.
